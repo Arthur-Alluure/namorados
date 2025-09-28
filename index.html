@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,16 +8,17 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
+      padding: 10px;
       background: linear-gradient(135deg, #ffe0ec, #ffc2d1);
       font-family: 'Comic Sans MS', cursive, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
       text-align: center;
     }
+
 
     #container {
       position: relative;
@@ -30,37 +32,46 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
       margin-top: 20px;
+      flex-wrap: wrap;
+      max-width: 90vw;
     }
 
     #botao {
-      padding: 20px 40px;
+      padding: 15px 30px;
       background-color: #ff69b4;
       color: white;
-      font-size: 20px;
+      font-size: 18px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
       position: fixed;
       transition: all 0.5s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       z-index: 1000;
+      max-width: 90vw;
+      text-align: center;
+      word-wrap: break-word;
     }
 
     #mensagemFinal {
       display: none;
-      font-size: 24px;
+      font-size: 20px;
       color: #b30059;
       animation: fadeIn 2s ease-in-out forwards;
-      max-width: 600px;
+      max-width: 90vw;
       margin: 20px auto;
+      padding: 0 10px;
+      line-height: 1.5;
     }
 
+
     .foto {
-      width: 200px;
-      border-radius: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      width: 180px;
+      max-width: 40vw;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       display: none;
       animation: fadeIn 2s ease-in-out forwards;
     }
@@ -70,11 +81,81 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Media Queries para Mobile */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 5px;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+      }
+
+      #container {
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      #botao {
+        padding: 12px 20px;
+        font-size: 16px;
+        max-width: 85vw;
+        white-space: normal;
+        line-height: 1.3;
+      }
+
+      #mensagemFinal {
+        font-size: 18px;
+        max-width: 95vw;
+        padding: 0 5px;
+        margin: 15px auto;
+      }
+
+      #fotosContainer {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+        max-width: 95vw;
+      }
+
+      .foto {
+        width: 250px;
+        max-width: 80vw;
+        border-radius: 12px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      #botao {
+        padding: 10px 15px;
+        font-size: 14px;
+        max-width: 90vw;
+      }
+
+      #mensagemFinal {
+        font-size: 16px;
+        line-height: 1.4;
+      }
+
+      .foto {
+        width: 200px;
+        max-width: 85vw;
+      }
     }
   </style>
 </head>
+
 <body>
   <div id="container">
     <button id="botao">OI AMOR, CLICA AQUI ❤️</button>
@@ -127,19 +208,19 @@
     function moverBotaoAleatoriamente() {
       // Margem de segurança para evitar que o botão saia da tela
       const margem = 50;
-      
+
       // Obter dimensões do botão
       const botaoWidth = botao.offsetWidth || 200; // fallback case
       const botaoHeight = botao.offsetHeight || 60; // fallback case
-      
+
       // Calcular limites seguros
       const maxX = Math.max(margem, window.innerWidth - botaoWidth - margem);
       const maxY = Math.max(margem, window.innerHeight - botaoHeight - margem);
-      
+
       // Gerar posições aleatórias dentro dos limites seguros
       const randomX = margem + Math.random() * (maxX - margem);
       const randomY = margem + Math.random() * (maxY - margem);
-      
+
       botao.style.left = `${randomX}px`;
       botao.style.top = `${randomY}px`;
     }
@@ -155,11 +236,11 @@
         Eu te amo mais do que palavras podem dizer. 💘💑
       `;
       mensagemFinal.style.display = 'block';
-      
+
       // Mostrar o container das fotos
       const fotosContainer = document.getElementById('fotosContainer');
       fotosContainer.style.display = 'flex';
-      
+
       // Mostrar todas as fotos individualmente também
       for (let i = 0; i < fotos.length; i++) {
         fotos[i].style.display = 'block';
@@ -167,4 +248,5 @@
     }
   </script>
 </body>
+
 </html>
