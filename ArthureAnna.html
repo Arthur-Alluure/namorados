@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feliz Aniversário de Namoro</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffe0ec, #ffc2d1);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    #container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #fotosContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    #botao {
+      padding: 20px 40px;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      position: fixed;
+      transition: all 0.5s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    #mensagemFinal {
+      display: none;
+      font-size: 24px;
+      color: #b30059;
+      animation: fadeIn 2s ease-in-out forwards;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    .foto {
+      width: 200px;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: none;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    #fotosContainer {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <button id="botao">OI AMOR, CLICA AQUI ❤️</button>
+    <div id="mensagemFinal"></div>
+    <div id="fotosContainer">
+      <img class="foto" src="Nos.jpeg" alt="Nós dois">
+      <img class="foto" src="Nos2.jpeg" alt="Nós dois">
+    </div>
+  </div>
+
+  <script>
+    const botao = document.getElementById('botao');
+    const mensagemFinal = document.getElementById('mensagemFinal');
+    const fotos = document.getElementsByClassName('foto');
+
+
+    const mensagens = [
+      "MAS PQ VC TA TÃO CURIOSA MINHA GATINHA? CLICA MAIS UMA VEZ ENTÃO 😘",
+      "KKKKKK CLICA DE NOVO💕",
+      "AMOR ESTA PREPARADA? ESSE E O ULTIMO CLIQUE 💖"
+    ];
+
+    let cliqueCount = 0;
+
+    // Posicionar o botão no centro da tela inicialmente
+    function posicionarBotaoInicial() {
+      // Aguardar um pouco para o botão ser renderizado
+      setTimeout(() => {
+        const centerX = (window.innerWidth - botao.offsetWidth) / 2;
+        const centerY = (window.innerHeight - botao.offsetHeight) / 2;
+        botao.style.left = `${centerX}px`;
+        botao.style.top = `${centerY}px`;
+      }, 100);
+    }
+
+    // Posicionar o botão quando a página carregar
+    window.addEventListener('DOMContentLoaded', posicionarBotaoInicial);
+
+    botao.addEventListener('click', () => {
+      if (cliqueCount < mensagens.length) {
+        botao.textContent = mensagens[cliqueCount];
+        moverBotaoAleatoriamente();
+        cliqueCount++;
+      } else {
+        botao.style.display = 'none';
+        mostrarMensagemFinal();
+      }
+    });
+
+    function moverBotaoAleatoriamente() {
+      // Margem de segurança para evitar que o botão saia da tela
+      const margem = 50;
+      
+      // Obter dimensões do botão
+      const botaoWidth = botao.offsetWidth || 200; // fallback case
+      const botaoHeight = botao.offsetHeight || 60; // fallback case
+      
+      // Calcular limites seguros
+      const maxX = Math.max(margem, window.innerWidth - botaoWidth - margem);
+      const maxY = Math.max(margem, window.innerHeight - botaoHeight - margem);
+      
+      // Gerar posições aleatórias dentro dos limites seguros
+      const randomX = margem + Math.random() * (maxX - margem);
+      const randomY = margem + Math.random() * (maxY - margem);
+      
+      botao.style.left = `${randomX}px`;
+      botao.style.top = `${randomY}px`;
+    }
+
+    function mostrarMensagemFinal() {
+      mensagemFinal.innerHTML = `
+        Amor, feliz nosso aniversário de namoro! ❤️<br><br>
+        Minha gatinha manhosa, nesse nosso dia, apesar de tudo, eu sou o homem mais feliz do mundo de ter você ao meu lado! ❤️<br>
+        Espero continuar dividindo com você todos os momentos da minha vida, até o resto dos meus dias. <br>
+        Com você, eu posso ser eu mesmo e continuar tendo razão e inspiração para conquistar as coisas da minha vida.  <br>
+        Cada momento ao seu lado é único, e a cada despedida eu so consigo pensar em como será nosso próximo encontro. <br>
+        Obrigado por ser a mulher que eu sempre sonhei em ter ao meu lado. <br>
+        Eu te amo mais do que palavras podem dizer. 💘💑
+      `;
+      mensagemFinal.style.display = 'block';
+      
+      // Mostrar o container das fotos
+      const fotosContainer = document.getElementById('fotosContainer');
+      fotosContainer.style.display = 'flex';
+      
+      // Mostrar todas as fotos individualmente também
+      for (let i = 0; i < fotos.length; i++) {
+        fotos[i].style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
